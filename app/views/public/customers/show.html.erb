@@ -1,2 +1,31 @@
-<h1>Public::Customers#show</h1>
-<p>Find me in app/views/public/customers/show.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <% if customer_signed_in? && @customer == current_customer %>
+      <h1 class="font-weight-normal mt-5 mb-5">マイページ</h1>
+    <% else %>
+      <h1 class="font-weight-normal mt-5 mb-5"><%= @customer.name %>さんのページ</h1>
+    <% end %>
+  </div>
+  
+  <div>
+    <% if @customer.profile_image.attached? %>
+      <%= image_tag @customer.profile_image %>
+    <% end %>
+    <%= @customer.name %>
+    <%= @customer.introduction %>
+    <%= link_to "編集", edit_customer_path %>
+  </div>
+  
+  <div class="row justify-content-center">
+    <% @posts.each do |post| %>
+      <div class="one-post">
+        <%= link_to post_path(post) do %>
+          <%= attachment_image_tag post, :image, format: 'jpeg', size: '200x133' %>
+          <p class="caption mb-0"><%= post.location %></p>
+          <p class="caption"><%= "#{post.comments.count} コメント" %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

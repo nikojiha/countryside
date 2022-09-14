@@ -9,6 +9,19 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  
+  <header>
+    <div>
+      <%= link_to root_path do %>
+        <img src="/assets/header.png" alt="logo" id="logo">
+      <% end %>
+    </div>
+    <div><%= link_to "トップ", root_path, class: "text" %></div>
+    <div><%= link_to "投稿する", new_post_path, class: "text" %></div>
+    <div><%= link_to "投稿一覧", posts_path, class: "text" %></div>
+   
+    <div><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "text" %></div>
+  </header>
 
   <body>
     <%= yield %>

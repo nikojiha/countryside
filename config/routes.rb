@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
 }
   
+  post 'guests/guest_sign_in', to: 'guests#new_guest'
+  
   namespace :admin do
     root to: 'homes#top'
     resources :freezes, only: :index

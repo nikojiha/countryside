@@ -1,2 +1,21 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<h1>編集する</h1>
+<%= form_with model:@post, url:"/posts/#{@post.id}", local:true do |f| %>
+  <div>
+    <%= f.label :images, '画像' %>
+    <%= f.file_field :images, multiple: true %>
+  </div>
+
+  <% if @post.images.present? %>
+    <p>現在登録されている画像（削除するものはチェックしてください）</p>
+    <% @post.images.each do |image| %>
+      <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+      <%= image_tag image, size:"100x100" %> <br>
+    <% end %>
+  <% end %>
+  
+　<h4>旅行先</h4>
+　<%= f.text_field :location %>
+　<h4>感想</h4>
+　<%= f.text_area :text %><br>
+　<%= f.submit '保存' %>
+<% end %>

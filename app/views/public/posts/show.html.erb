@@ -1,2 +1,16 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<h2>
+<strong>画像</strong>
+  <% if @post.images.attached? %>
+    <% @post.images.each do |image| %>
+      <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
+    <% end %>
+  <% end %>
+</h2>
+<h2>旅行先</h2>
+<p><%= @post.location %></p>
+<h2>感想</h2>
+<p><%= @post.post_comment %></p>
+
+<%= link_to '編集する', edit_post_path(@post.id) %><br>
+<%= link_to '削除する', post_path(@post.id),method: :delete, "data-confirm"=>"本当に消しますか？" %><br>
+<%= link_to '投稿一覧ページへ', posts_path %>

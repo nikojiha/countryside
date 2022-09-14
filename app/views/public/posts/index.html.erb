@@ -1,2 +1,3 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<h1>投稿一覧</h1>
+<%= link_to '新規投稿', new_post_path %>
+<%= render 'post', post: @post %>

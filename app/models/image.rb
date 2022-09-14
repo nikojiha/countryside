@@ -1,7 +1,7 @@
 class Image < ApplicationRecord
   
   belongs_to :post, dependent: :destroy
-  has_one_attached :image
+  has_many_attached :images
   
   def get_image(width, height)
   unless image.attached?

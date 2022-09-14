@@ -5,4 +5,5 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   belongs_to :custmer, dependent: :destroy
   belongs_to :tag, dependent: :destroy
+  has_many_attached :images
 end

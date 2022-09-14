@@ -1,0 +1,15 @@
+<div class="post-partial">
+  <%= post.each do |post| %>
+    <li id="post-<%= post.id %>">
+      <% post.images.each do |image| %>
+        <%= image_tag(image, width:100) %>
+      <% end %>
+      <p>旅行先</p>
+      <span><%= link_to post.location, post_path(post) %></span>
+      <h4>コメント</h4>
+         <%= post.post_comment %>
+        <%= link_to '編集', edit_post_path(post.id) %>
+        <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
+    </li>
+  <% end %>
+</div>
