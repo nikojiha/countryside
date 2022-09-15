@@ -6,7 +6,7 @@
       <h1 class="font-weight-normal mt-5 mb-5"><%= @customer.name %>さんのページ</h1>
     <% end %>
   </div>
-  
+
   <div>
     <% if @customer.profile_image.attached? %>
       <%= image_tag @customer.profile_image %>
@@ -14,14 +14,35 @@
     <%= @customer.name %>
     <%= @customer.introduction %>
     <%= link_to "編集", edit_customer_path %>
+    <% if current_customer != @customer %>
+     <% if current_customer.following?(@customer) %>
+     <%= link_to 'フォロー外す', customer_relationships_path(@customer.id), method: :delete, class: "btn-sm btn-danger" %>
+     <% else %>
+     <%= link_to 'フォローする', customer_relationships_path(@cusotmer.id), method: :POST, class:"btn-sm btn-success" %>
+     <% end %>
+    <% end %>
   </div>
-  
+  <div class="d-flex">
+     <%= link_to follows_customer_path(@customer) do %>
+     <h6>フォロー<%= @following_customers.count %></h6>
+     <% end %>&nbsp;&nbsp;
+     <%= link_to followers_customer_path(@customer) do %>
+     <h6>フォロワー<%= @follower_customers.count %></h6>
+     <% end %>
+   </div>
+
   <div class="row justify-content-center">
     <% @posts.each do |post| %>
       <div class="one-post">
         <%= link_to post_path(post) do %>
-          <%= attachment_image_tag post, :image, format: 'jpeg', size: '200x133' %>
+          <% post.images.each do |image| %>
+            <%= image_tag image, format: 'jpeg', size: '200x133' %>
+          <% end %>
+          <%#= attachment_image_tag post, :images, format: 'jpeg', size: '200x133' %>
           <p class="caption mb-0"><%= post.location %></p>
+          
+           <%= render '/posts/star', post: post%>
+           
           <p class="caption"><%= "#{post.comments.count} コメント" %></p>
         <% end %>
       </div>

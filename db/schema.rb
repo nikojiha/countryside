@@ -82,8 +82,10 @@ ActiveRecord::Schema.define(version: 2022_09_09_075606) do
   end
 
   create_table "freezes", force: :cascade do |t|
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_freezes_on_customer_id"
   end
 
   create_table "images", force: :cascade do |t|

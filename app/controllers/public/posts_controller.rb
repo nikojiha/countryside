@@ -1,13 +1,13 @@
 class Public::PostsController < ApplicationController
 
   def new
-     @post = Post.new  
+     @post = Post.new
   end
 
   def create
     @post = Post.new(post_params)
-    @post.customer_id = current_customer.id
-    @post.save
+    @post.customer = current_customer
+    @post.save!
     redirect_to posts_path
   end
 
@@ -46,8 +46,8 @@ class Public::PostsController < ApplicationController
   end
 
   private
-  
+
   def post_params
-    params.require(:post).permit(:location, :post_comment,:tag_id, images: [])
+    params.require(:post).permit(:location, :post_comment, :tag_id, :star,images: [])
   end
 end

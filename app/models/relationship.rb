@@ -1,6 +1,6 @@
 class Relationship < ApplicationRecord
   
-  belongs_to :customer, dependent: :destroy
-  belongs_to :post, dependent: :destroy
+  belongs_to :follower, class_name: "Customer"
+  belongs_to :followed, class_name: "Customer"
   
 end

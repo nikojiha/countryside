@@ -1,4 +1,4 @@
-class Admin::TagController < ApplicationController
+class Admin::TagsController < ApplicationController
   def index
     @tag = Tag.new
     @tags = Tag.all
@@ -25,6 +25,12 @@ class Admin::TagController < ApplicationController
     else
       render edit_admin_tag_path
     end
+  end
+  
+  def destroy
+    tag = Tag.find(params[:id])
+    tag.destroy
+    redirect_to admin_tags_path
   end
   
   private

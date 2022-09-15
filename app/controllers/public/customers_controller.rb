@@ -1,7 +1,7 @@
 class Public::CustomersController < ApplicationController
   
   def index
-     @customer = Customer.page(params[:page]).per(3).reverse_order
+     @customer = Customer.all
   end
 
   def edit
@@ -9,27 +9,32 @@ class Public::CustomersController < ApplicationController
   end
   
   def update
-  customer = Customer.find(params[:id])
-  customer.update(post_params)
-  redirect_to customer_path(customer.id)
+    customer = Customer.find(params[:id])
+    customer.update(post_params)
+    redirect_to customer_path(customer.id)
   end
 
   def show
     @customer = Customer.find(params[:id])
     @posts = @customer.posts
+    @following_customers = @customer.following_customer
+    @follower_customers = @customer.follower_customer
   end
   
   def destroy
+    customer = Customer.find(params[:id])
+    customer.destroy
+    redirect_to "/"
   end
 
   def follows
     customer = Customer.find(params[:id])
-    @customers = customer.following_customer.page(params[:page]).per(3).reverse_order
+    @customers = customer.following_customer
   end
 
   def followers
-    user = User.find(params[:id])
-    @users = user.follower_user.page(params[:page]).per(3).reverse_order
+    customer = Customer.find(params[:id])
+    @customers = customer.follower_customer
   end
   
   private

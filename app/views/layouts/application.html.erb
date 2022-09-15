@@ -10,20 +10,68 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
-  <header>
-    <div>
-      <%= link_to root_path do %>
-        <img src="/assets/header.png" alt="logo" id="logo">
-      <% end %>
-    </div>
-    <div><%= link_to "トップ", root_path, class: "text" %></div>
-    <div><%= link_to "投稿する", new_post_path, class: "text" %></div>
-    <div><%= link_to "投稿一覧", posts_path, class: "text" %></div>
-   
-    <div><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "text" %></div>
-  </header>
-
-  <body>
-    <%= yield %>
-  </body>
+    <% if customer_signed_in? %>
+      <header  class="bg-dark text-white pt-5 pb-4">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container">
+            <ul class="navbar-nav" style="flex-direction: row;">
+              <h4><li><%= link_to root_path, class: "text-white ml-5" do %>
+              <i class="fas fa-home"></i>
+              トップ
+              <% end %>
+              </li></h4>
+            
+              <h4><li><%= link_to customer_path(current_customer), class: "text-white ml-5" do %>
+              <i class="fas fa-polaroid-user"></i>
+              マイページ
+              <% end %>
+              </li></h4>
+                
+              <h4><li><%= link_to new_post_path, class: "text-white ml-5" do %>
+              <i class="fas fa-pen"></i>
+              投稿する
+              <% end %>
+              </li></h4>
+                
+              <h4><li><%= link_to posts_path, class: "text-white ml-5" do %>
+              <i class="fas fa-image"></i>
+              投稿一覧
+              <% end %>
+              </li></h4>
+              
+              <h4><li><%= link_to destroy_customer_session_path, method: :delete, class: "text-white ml-5" do %>
+              <i class="fas fa-user"></i>
+              ログアウト
+              <% end %>
+              </li></h4>
+              
+              <%= link_to "roguauto", destroy_admin_session_path, method: :delete %>
+            </ul>
+          </div>
+        </nav>  
+ 　    </header>
+    <% end %>
+     <body>
+      <%= yield %>
+    </body>
+     <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <p>綺麗な田舎の景色をシェアするレビューサイト</p>
+          </div>
+          <div class="col-md-8 text-right">
+            <h6 class="text-white mt-2 mb-3">Link</h6>
+            <ul class="p-0 list-unstyled">
+              <li>
+                <a href="homes/about" title="About" class="text-white-50">利用規約</a>
+              </li>
+              <li>
+                <a href="" title="License informations" class="text-white-50">プライバシーポリシー</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
 </html>

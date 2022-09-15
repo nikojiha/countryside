@@ -8,9 +8,7 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] , controllers: {
   sessions: "admin/sessions"
 }
-  
-  post 'guests/guest_sign_in', to: 'guests#new_guest'
-  
+
   namespace :admin do
     root to: 'homes#top'
     resources :freezes, only: :index
@@ -24,6 +22,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'homes/about'
+    post 'guests/guest_sign_in', to: 'guests#new_guest'
     resources :comments, except: [:index,:show]
     resources :customers, except: [:new,:create] do
       member do

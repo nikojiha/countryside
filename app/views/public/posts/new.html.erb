@@ -1,14 +1,3 @@
 <h1>新規旅行投稿</h1>
-<%= form_with model: @post, url: '/posts', local:true do |f| %>
-  <div>
-    <%= f.label :images, '画像' %>
-    <%= f.file_field :images, multiple: true %>
-  </div>
- <p></p>
-  <%= f.select :tag_id, options_from_collection_for_select(Tag.all, :id, :name),include_blank: "--選択して下さい--" %>
-  <h4>旅行先</h4>
-  <%= f.text_field :location %>    
-  <h4>感想</h4>
-  <%= f.text_area :post_comment %>
-  <%= f.submit '投稿' %>
-<% end %>
+  <%= render 'form' %>
+ 

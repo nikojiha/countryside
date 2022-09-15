@@ -1,0 +1,23 @@
+<div class="row mt-5">
+    <div class="form-group">
+      <%= form_with model: [:admin, tag] do |f| %>
+      <div class="d-flex flex-row bd-highlight ml-6">
+        <div class="form-group ">
+          <%= f.label :name,"タグ名" %>
+        </div>
+        <div class="form-group ml-5">
+          <div class="col-sm-12 ">
+          <%= f.text_field :name, placeholder: "タグ名", class: "form-control text_field" %>
+          </div>
+        </div>
+        <div class="form-group ml-5">
+          <% if f.object.new_record? %>
+            <%= f.submit "新規作成" %>
+          <% else %>
+            <%= f.submit "編集する" %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+</div>

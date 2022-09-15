@@ -16,25 +16,21 @@ class Customer < ApplicationRecord
   
   #メソッドに対して引数を設定し、引数に設定した値に画像のサイズを変換するようにした
   def get_profile_image(width, height)
-  unless profile_image.attached?
-    file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-    profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-  end
-  profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
   
    # ユーザーをフォローする
-  def follow(user_id)
-    follower.create(followed_id: user_id)
+  def follow(customer_id)
+    follower.create(followed_id: customer_id)
   end
 
   # ユーザーのフォローを外す
-  def unfollow(user_id)
-    follower.find_by(followed_id: user_id).destroy
+  def unfollow(customer_id)
+    follower.find_by(followed_id: customer_id).destroy
   end
 
   # フォローしていればtrueを返す
-  def following?(user)
-    following_user.include?(user)
+  def following?(customer)
+    following_customer.include?(customer)
   end
 end
