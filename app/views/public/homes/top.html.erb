@@ -1,3 +1,9 @@
-  <%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, method: :post %>
-  <%= link_to 'ログイン（会員用）',  customer_session_path %>
-  <%= link_to '新規登録', new_customer_registration_path %>
+<div class="bg-main">
+  <div class="mx-auto text-center">  
+    <br><br><br><br> <br> <br> <br> <br> <br> <br> <br> <br>
+     <h2><%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, method: :post, class: " font-weight-bold" %>
+     |
+     <%= link_to 'ログイン（会員用）',  customer_session_path, class: " font-weight-bold" %></h2> <br>
+    <h2><%= link_to '新規登録', new_customer_registration_path, class: "text-success font-weight-bold" %></h2>
+  </div>
+</div>

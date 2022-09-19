@@ -1,10 +1,11 @@
- <p>評価 :<%= post.star %>点</p>
+ <h6>評価 :<%= post.star %>点</h6>
     <div id="star-rate<%= post.id%>"></div>    
     <script>
       $('#star-rate<%= post.id%>').raty({
         size      : 36,
         starOff   : '<%= asset_path('star-off.png') %>',
         starOn    : '<%= asset_path('star-on.png') %>',
+        starHalf  : "<%= asset_path('star-half.png') %>",
         half      : false,
         readOnly: true,
         score: <%= post.star %>,

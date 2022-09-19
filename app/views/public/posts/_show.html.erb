@@ -1,0 +1,10 @@
+<h5>画像</h5>
+  <% post.images.each do |image| %>
+    <%= image_tag(image, width:100) %>
+  <% end %>
+  <p class="caption h4"><%= post.location %></p>
+<h5>レビュー</h5>
+  <p class="caption h6"><%= post.post_comment %></p>
+<%= render 'public/posts/star', post: post %>
+<%= render 'public/favorites/btn', post: post %><br>
+<p class="caption"><%= "#{post.comments.count} コメント" %></p>

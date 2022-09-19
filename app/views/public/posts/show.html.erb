@@ -1,16 +1,32 @@
-<h2>
-<strong>画像</strong>
-  <% if @post.images.attached? %>
-    <% @post.images.each do |image| %>
-      <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
-    <% end %>
+<div class="container my-5">
+ <div class ="row">
+ <div class="col-4 text-center">
+  <%= render "show", post: @post %>
+   <%= link_to '編集する', edit_post_path(@post), class: 'btn btn-primary mt-2'  %>
+   ｜
+   <%= link_to '削除する', post_path(@post.id),method: :delete, "data-confirm"=>"本当に消しますか？" , class: 'btn btn-danger mt-2' %>
+ </div>
+ <div class="col-7 comments ml-5 mt-5">
+  <%= form_with(model:[@post, @comment], local: true) do |f| %>
+   <%= f.text_area :comment, :size=>"60x3",placeholder: "コメントする" %>
+   <%= f.submit "送信する", class: "btn btn-success mb-4" %>
   <% end %>
-</h2>
-<h2>旅行先</h2>
-<p><%= @post.location %></p>
-<h2>感想</h2>
-<p><%= @post.post_comment %></p>
 
-<%= link_to '編集する', edit_post_path(@post.id) %><br>
-<%= link_to '削除する', post_path(@post.id),method: :delete, "data-confirm"=>"本当に消しますか？" %><br>
-<%= link_to '投稿一覧ページへ', posts_path %>
+ <p>コメント件数：<%= @comments.count %></p>
+  <% @comments.each do |comment| %>
+	  <div class="comments-index mb-2">
+    <%= comment.customer.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+     <div class="d-flex">
+      <%= comment.comment %>
+      <% if comment.customer == current_customer %>
+       <div class="comment-delete ml-5">
+        <%= link_to "削除", post_comment_path(comment.post.id, comment.id), method: :delete, class: "btn-sm btn-danger" %>
+       </div>
+      <% end %>
+     </div>
+   </div>
+  <% end %>
+ </div>
+ </div>
+</div>

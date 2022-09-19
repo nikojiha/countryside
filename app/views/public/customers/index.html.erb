@@ -1,2 +1,18 @@
-<h1>Public::Customers#index</h1>
-<p>Find me in app/views/public/customers/index.html.erb</p>
+<div class="container my-5">
+  <h1>ユーザー一覧</h1>
+  <div class="post-partial">
+    <div class="row">
+      <% @customer.each do |customer| %>
+        <div class="col-md-3">
+            <%= link_to customer.name, customer_path(customer) %><br>
+            <% if customer.profile_image.attached? %>
+              <%= image_tag customer.profile_image %>
+            <% end %>
+            <p class="caption"><%= "#{customer.posts.count} 投稿" %></p>
+
+              <%= render 'relationship', customer: customer %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

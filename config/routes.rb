@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
    devise_for :customers, controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
@@ -18,21 +18,25 @@ Rails.application.routes.draw do
      resource :freeze, only: %i[create destroy], module: 'accounts'
     end
   end
-  
+
   scope module: :public do
     root to: 'homes#top'
     get 'homes/about'
     post 'guests/guest_sign_in', to: 'guests#new_guest'
-    resources :comments, except: [:index,:show]
+
     resources :customers, except: [:new,:create] do
       member do
         get :follows, :followers
+        get :unsubscribe
       end
       resource :relationships, only: [:create, :destroy]
     end
-    resources :posts 
-    resources :favorites, only: [:create,:destroy]
+
+    resources :posts do
+      resource :favorites, only: [:create,:destroy]
+      resources :comments, except: [:index,:show]
+    end
   end
-  
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

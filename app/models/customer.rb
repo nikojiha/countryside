@@ -3,8 +3,8 @@ class Customer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
-  has_one :freeze, dependent: :destroy
+
+  # has_one :freeze, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -13,12 +13,12 @@ class Customer < ApplicationRecord
   has_many :following_customer, through: :follower, source: :followed # 自分がフォローしている人
   has_many :follower_customer, through: :followed, source: :follower # 自分をフォローしている人
   has_one_attached :profile_image #プロフ画像
-  
+
   #メソッドに対して引数を設定し、引数に設定した値に画像のサイズを変換するようにした
   def get_profile_image(width, height)
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
    # ユーザーをフォローする
   def follow(customer_id)
     follower.create(followed_id: customer_id)

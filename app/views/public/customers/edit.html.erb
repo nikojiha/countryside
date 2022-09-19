@@ -1,2 +1,37 @@
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<div class="container my-5">
+  <div class="row justify-content-center">
+   <h1>会員情報編集</h1>
+  </div>
+ <div class="row justify-content-center">
+ <%= form_with model: @customer, url: customer_path(@customer.id), method: :patch do |f| %>
+   <table class="table">
+     <tr>
+     <td><%= f.label :profile_image, "アイコン" %></td>
+     <td>
+      <%= f.file_field :profile_image, placeholder: "プロフィール画像" %>
+     </td>
+    </tr>
+    <tr>
+     <td><%= f.label :name, "ユーザーネーム" %></td>
+     <td>
+      <%= f.text_field :name, autocomplete: "name" %>
+     </td>
+    </tr>
+    <tr>
+     <td><%= f.label :introduction, "自己紹介" %></td>
+     <td>
+      <%= f.text_area :introduction, autocomplete: "introduction", :size=>"60x10"%>
+     </td>
+    </tr>
+    
+   </table>
+   <table>
+     <tr>
+       <td><%= f.submit "編集内容を保存", class: "btn btn-success" %></td>
+       <td></td>
+       
+   </table>
+ <% end %>
+ </div>
+</div>
+

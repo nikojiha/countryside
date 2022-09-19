@@ -1,3 +1,26 @@
-<h1>投稿一覧</h1>
-<%= link_to '新規投稿', new_post_path %>
-<%= render 'post', post: @post %>
+<div class="container my-5">
+  <h1>投稿一覧</h1>
+    <%= link_to '新規投稿', new_post_path, class: 'btn btn-success mt-2' %>
+      <%= form_tag posts_path, method: :get, class: 'boards__searchForm my-2' do %>
+        <%= select_tag :tag_id,
+        options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+        {
+        prompt: 'タグで絞り込み検索',
+        onchange: 'submit(this.form);'
+        }
+        %>
+      <% end %>
+  <div class="row">
+    <% @post.each do |post| %>
+      <div class="col-md-5">
+        <h5>ユーザー</h5>
+          <h4><%= link_to post.customer.name, customer_path(post.customer) %></h4>
+          <%  post.images.each do |image| %>
+            <%= link_to image_tag(image, width:200), post_path(post.id) %>
+          <% end %>
+        <p class="caption h6"><%= post.location %>
+        <%= render 'public/favorites/btn', post: post %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class = "container mt-5">
+  <div class="row">
+    <div class="mx-auto text-center mt-5">
+      <h5><strong>本当に退会しますか？</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mx-auto text-center mt-3">
+      <p>退会すると、会員登録情報や<br>
+        これまでの投稿した画像はすべてなくなります。<br>
+      　退会する場合は、「退会する」をクリックしてください。</h5>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mx-auto text-center mt-3">
+       <%= link_to "退会しない", customer_path(current_customer.id), class: 'btn btn-primary mr-5'%>
+       <%= link_to "退会する", customer_path(@customer.id), method: :delete, data: {confirm: "本当に退会しますか？"}, class: 'btn btn-danger'%>
+      </div>
+  </div>
+</div>

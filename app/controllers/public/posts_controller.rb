@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :ensure_correct_customer, except: [:index,:show]
 
   def new
      @post = Post.new
@@ -7,16 +8,22 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer = current_customer
-    @post.save!
-    redirect_to posts_path
+    if @post.save!
+      redirect_to posts_path
+    else
+      render :new
+    end
   end
 
   def index
     @post = Post.all
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
   end
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new 
+    @comments = @post.comments
   end
 
   def edit
@@ -31,7 +38,7 @@ class Public::PostsController < ApplicationController
         image.purge
       end
     end
-    if post.update_attributes(post_params)
+    if post.update(post_params)
       flash[:success] = "編集しました"
       redirect_to posts_url
     else
@@ -41,8 +48,11 @@ class Public::PostsController < ApplicationController
 
   def destroy
     post = Post.find(params[:id])
-    post.destroy
-    redirect_to posts_path
+    if post.destroy
+      redirect_to posts_path
+    else
+      render :show
+    end
   end
 
   private
@@ -50,4 +60,11 @@ class Public::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:location, :post_comment, :tag_id, :star,images: [])
   end
+  
+  def ensure_correct_customer
+    unless Post.find(params[:id]).customer.id.to_i == current_customer.id
+        redirect_to post_path 
+    end
+  end
+  
 end

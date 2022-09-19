@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
-.main {
-  background-image:url("images/草原.jpg")
+.bg-main {
+  background: image-url("sougen.jpg");
+  background-size: cover;
+  min-height: 100vh;
+
 }
