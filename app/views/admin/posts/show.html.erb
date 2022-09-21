@@ -1,2 +1,30 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<div class="container my-5">
+  <div class ="row">
+    <div class="col-4 text-center">
+      <h5>画像</h5>
+        <% @post.images.each do |image| %>
+          <%= image_tag(image, width:100) %>
+        <% end %>
+      <p class="caption h4"><%= @post.location %></p>
+      <h5>レビュー</h5>
+      <p class="caption h6"><%= @post.post_comment %></p>
+      <p class="caption"><%= "#{@post.comments.count} コメント" %></p>
+      <%= link_to '削除する', admin_post_path(@post.id),method: :delete, "data-confirm"=>"本当に消しますか？" , class: 'btn btn-danger mt-2' %>
+    </div>
+    <div class="col-7 comments ml-5 mt-5">
+      <p>コメント件数：<%= @comments.count %></p>
+        <% @comments.each do |comment| %>
+	        <div class="comments-index mb-2">
+            <%= comment.customer.name %>
+            <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+            <div class="d-flex">
+              <%= comment.comment %>
+                <div class="comment-delete ml-5">
+                  <%= link_to "削除", post_comment_path(comment.post.id, comment.id), method: :delete, class: "btn-sm btn-danger" %>
+                </div>
+             </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

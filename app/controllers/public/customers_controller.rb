@@ -1,14 +1,17 @@
 class Public::CustomersController < ApplicationController
-  before_action :ensure_correct_customer, only: [:edit, :unsubscribe, :update, :destroy]
+  before_action :authenticate_customer!, only: [:edit, :unsubscribe, :update, :destroy]
 
   def index
      @customer = Customer.all
-     
-     
   end
 
   def edit
     @customer = Customer.find(params[:id])
+    if @customer == current_customer
+      render :edit
+    else
+      redirect_to customers_path
+    end
   end
 
   def update
@@ -29,6 +32,11 @@ class Public::CustomersController < ApplicationController
 
   def unsubscribe
      @customer = Customer.find(params[:id])
+    if @customer == current_customer
+      render :unsubscribe
+    else
+      redirect_to customers_path
+    end
   end
 
   def destroy
@@ -56,10 +64,4 @@ class Public::CustomersController < ApplicationController
     params.require(:customer).permit(:name,:email,:profile_image,:introduction)
   end
 
-  def ensure_correct_customer
-
-    unless Customer.find(params[:id]).id == current_customer.id
-        redirect_to customer_path
-    end
-  end
 end

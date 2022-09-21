@@ -1,7 +1,7 @@
 class Public::PostsController < ApplicationController
-  before_action :ensure_correct_customer, except: [:index,:show]
+  before_action :authenticate_customer!, except: [:index,:show]
 
-  def new
+  def new 
      @post = Post.new
   end
 
@@ -28,6 +28,11 @@ class Public::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    if @post.customer == current_customer
+      render :edit
+    else
+      redirect_to customer_path(@post.customer)
+    end
   end
 
   def update
@@ -48,10 +53,14 @@ class Public::PostsController < ApplicationController
 
   def destroy
     post = Post.find(params[:id])
-    if post.destroy
-      redirect_to posts_path
+    if post.customer == current_customer
+      if post.destroy
+        redirect_to posts_path
+      else
+        render :show
+      end
     else
-      render :show
+      redirect_to customer_path(post.customer)
     end
   end
 
@@ -59,12 +68,6 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:location, :post_comment, :tag_id, :star,images: [])
-  end
-  
-  def ensure_correct_customer
-    unless Post.find(params[:id]).customer.id.to_i == current_customer.id
-        redirect_to post_path 
-    end
   end
   
 end

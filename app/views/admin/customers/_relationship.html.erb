@@ -1,6 +1,4 @@
-
-   <% if current_customer.id == 1 %>
-   <% elsif current_customer != customer %>
+   <% if current_customer != customer %>
       <% if current_customer.following?(customer) %>
          <%= link_to 'フォロー外す', customer_relationships_path(customer.id), method: :delete, class: "btn-sm btn-danger" %>
       <% else %>
@@ -12,3 +10,4 @@
    |
    <%= link_to "#{customer.followed.count} フォロワー",  followers_customer_path(customer) %>
 
+   

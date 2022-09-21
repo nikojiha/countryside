@@ -25,7 +25,7 @@
     </script>
 
     <h4>レビュー</h4>
-      <%= f.text_area :post_comment %><br>
+      <%= f.text_area :post_comment, :size=>"60x10" %><br>
         <% if f.object.new_record? %>
           <%= f.submit "投稿する" %>
         <% else %>

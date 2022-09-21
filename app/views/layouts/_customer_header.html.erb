@@ -1,0 +1,44 @@
+<header  class="bg-dark text-white pt-5 pb-4">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <ul class="navbar-nav" style="flex-direction: row;">
+        
+        <% if current_customer.id == 1 %>
+        <% else %>
+          <h4><li><%= link_to customer_path(current_customer), class: "text-white ml-5" do %>
+          <i class="fas fa-home"></i>
+          マイページ
+          <% end %>
+          </li></h4>
+        <% end %>
+
+        <% if current_customer.id == 1 %>
+        <% else %>
+          <h4><li><%= link_to new_post_path, class: "text-white ml-5" do %>
+          <i class="fas fa-pen"></i>
+          投稿する
+          <% end %>
+          </li></h4>
+        <% end %>
+
+        <h4><li><%= link_to posts_path, class: "text-white ml-5" do %>
+        <i class="fas fa-image"></i>
+        投稿一覧
+        <% end %>
+        </li></h4>
+              
+        <h4><li><%= link_to customers_path, class: "text-white ml-5" do %>
+        <i class="fas fa-user"></i>
+        ユーザー一覧
+        <% end %>
+        </li></h4>
+
+        <h4><li><%= link_to destroy_customer_session_path, method: :delete, class: "text-white ml-5" do %>
+        <i class="fas fa-door-open"></i>
+        ログアウト
+        <% end %>
+        </li></h4>
+      </ul>
+    </div>
+  </nav>
+</header>

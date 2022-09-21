@@ -1,0 +1,33 @@
+<header  class="bg-dark text-white pt-5 pb-4">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <ul class="navbar-nav" style="flex-direction: row;">
+
+        <h4><li><%= link_to admin_posts_path, class: "text-white ml-5" do %>
+        <i class="fas fa-image"></i>
+        投稿一覧
+        <% end %>
+        </li></h4>
+              
+        <h4><li><%= link_to admin_root_path, class: "text-white ml-5" do %>
+        <i class="fas fa-user"></i>
+        ユーザー一覧
+        <% end %>
+        </li></h4>
+        
+        <h4><li><%= link_to admin_tags_path, class: "text-white ml-5" do %>
+        <i class="fas fa-user"></i>
+        タグ一覧
+        <% end %>
+        </li></h4>
+
+        <h4><li><%= link_to destroy_admin_session_path, method: :delete, class: "text-white ml-5" do %>
+        <i class="fas fa-door-open"></i>
+        ログアウト
+        <% end %>
+        </li></h4>
+
+      </ul>
+    </div>
+  </nav>
+</header>

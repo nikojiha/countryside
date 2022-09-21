@@ -11,10 +11,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'homes#top'
-    resources :freezes, only: :index
+    resources :freezes, only: [:index]
     resources :tags, except: [:new,:show]
     resources :posts, only: [:index,:show,:destroy]
-    resources :customers, only: [:index,:show] do
+    resources :customers, only: [:show,:index] do
      resource :freeze, only: %i[create destroy], module: 'accounts'
     end
   end

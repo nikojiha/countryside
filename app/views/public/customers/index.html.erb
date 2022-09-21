@@ -3,15 +3,17 @@
   <div class="post-partial">
     <div class="row">
       <% @customer.each do |customer| %>
-        <div class="col-md-3">
-            <%= link_to customer.name, customer_path(customer) %><br>
-            <% if customer.profile_image.attached? %>
-              <%= image_tag customer.profile_image %>
-            <% end %>
-            <p class="caption"><%= "#{customer.posts.count} 投稿" %></p>
-
+        <% if customer.id == 1 %>
+        <% else %>
+          <div class="col-md-3">
+              <%= link_to customer.name, customer_path(customer) %><br>
+              <% if customer.profile_image.attached? %>
+                <%= image_tag customer.profile_image %>
+              <% end %>
+              <p class="caption"><%= "#{customer.posts.count} 投稿" %></p>
               <%= render 'relationship', customer: customer %>
-        </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

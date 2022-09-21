@@ -1,4 +1,5 @@
 class Public::RelationshipsController < ApplicationController
+before_action :authenticate_customer!, only: [:destroy,:create]
   
 def create
   current_customer.follow(params[:customer_id])
@@ -10,5 +11,4 @@ def destroy
   redirect_to request.referer
 end
 
-  
 end
