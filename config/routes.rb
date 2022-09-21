@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'homes/about'
     post 'guests/guest_sign_in', to: 'guests#new_guest'
-
+    get '/search', to: 'searchs#search'
     resources :customers, except: [:new,:create] do
       member do
         get :follows, :followers

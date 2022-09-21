@@ -1,0 +1,18 @@
+<% if @model == 'customer' %>
+  <h3>【Customersモデルの検索結果】検索ワード：<%= @content %></h3>
+  <% @records.each do |customer| %>
+  <%= link_to customer_path(customer) do %>
+    <%= customer.name %><br>
+  <% end %>
+<% end %>
+<% else @model == 'posts' %>
+  <h3>【Postsモデルの検索結果】検索ワード：<%= @content %></h3>
+   <% @records.each do |post| %>
+      <% post.images.each do |image| %>
+        <%= link_to image_tag(image, width:200), post_path(post.id) %>
+      <% end %>
+    <%= post.location %>
+    <%= post.post_comment %>
+  <% end %>
+<% end %>
+
