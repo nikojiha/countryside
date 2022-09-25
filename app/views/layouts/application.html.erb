@@ -18,6 +18,14 @@
     <% else%>
     <% end %>
   <body>
+    <div class="row justify-content-center">
+      <div class="text-success">
+        <%= flash.now[:notice] %>
+      </div>
+      <div class="text-danger">
+      <%= flash.now[:alert] %>
+      </div>
+    </div>
     <%= yield %>
   </body>
   

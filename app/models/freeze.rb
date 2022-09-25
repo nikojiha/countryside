@@ -1,4 +1,5 @@
 class Freeze < ApplicationRecord
   
-  belongs_to :costomer
+  belongs_to :customer, optional: true
+
 end

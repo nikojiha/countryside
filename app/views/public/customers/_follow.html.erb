@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
-      <% customers.each do |customer| %>
-      <div class="col-md-3">
-        <%= link_to customer_path(customer) do %>
+  <% customers.each do |customer| %>
+    <div class="col-md-3">
+      <%= link_to customer_path(customer) do %>
         <p class="caption h4"><%= customer.name %></p>
         <div class="d-flex">
           <% if customer.profile_image.attached? %>
@@ -9,8 +9,8 @@
           <% end %>
         </div>
         <p class="caption"><%= "#{customer.posts.count} 投稿" %></p>
-        <% end %>
-         <%= render 'relationship', customer: customer %>
-      </div>
       <% end %>
+      <%= render 'relationship', customer: customer %>
     </div>
+  <% end %>
+</div>

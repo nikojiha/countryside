@@ -1,18 +1,37 @@
-<% if @model == 'customer' %>
-  <h3>【Customersモデルの検索結果】検索ワード：<%= @content %></h3>
-  <% @records.each do |customer| %>
-  <%= link_to customer_path(customer) do %>
-    <%= customer.name %><br>
-  <% end %>
-<% end %>
-<% else @model == 'posts' %>
-  <h3>【Postsモデルの検索結果】検索ワード：<%= @content %></h3>
-   <% @records.each do |post| %>
-      <% post.images.each do |image| %>
-        <%= link_to image_tag(image, width:200), post_path(post.id) %>
-      <% end %>
-    <%= post.location %>
-    <%= post.post_comment %>
-  <% end %>
-<% end %>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <% if @model == 'customer' %>
+      <h3>【<%= @content %>の検索結果】</h3>
+  </div>
+    <div class="row">
+      <div class="col-md-3">
+        <% @records.each do |customer| %>
+          <%= link_to customer_path(customer) do %><br>
+            <p><%= customer.name %></p>
+            <% if customer.profile_image.attached? %>
+              <%= image_tag customer.profile_image %>
+            <% end %>
+            <p class="caption"><%= "#{customer.posts.count} 投稿" %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+    <% else @model == 'posts' %>
+      <h3>【<%= @content %>の検索結果】</h3>
+    </div>
+    <div class="row">
+        <% @records.each do |post| %>
+            <div class="col-5">
+              <% post.images.each do |image| %>
+                <%= link_to image_tag(image, width:200), post_path(post.id) %>
+              <% end %><br>
+              <%= post.location %>
+              <%= render 'public/favorites/btn', post: post %>
+            </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 

@@ -7,7 +7,7 @@
         <% end %>
       <p class="caption h4"><%= @post.location %></p>
       <h5>レビュー</h5>
-      <p class="caption h6"><%= @post.post_comment %></p>
+      <p class="caption h6" style="word-break: break-all;"><%= @post.post_comment %></p>
       <p class="caption"><%= "#{@post.comments.count} コメント" %></p>
       <%= link_to '削除する', admin_post_path(@post.id),method: :delete, "data-confirm"=>"本当に消しますか？" , class: 'btn btn-danger mt-2' %>
     </div>
@@ -20,7 +20,7 @@
             <div class="d-flex">
               <%= comment.comment %>
                 <div class="comment-delete ml-5">
-                  <%= link_to "削除", post_comment_path(comment.post.id, comment.id), method: :delete, class: "btn-sm btn-danger" %>
+                  <%= link_to "削除", admin_post_comment_path(comment.post.id, comment.id), method: :delete, class: "btn-sm btn-danger" %>
                 </div>
              </div>
           </div>

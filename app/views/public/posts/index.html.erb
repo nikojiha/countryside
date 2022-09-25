@@ -16,14 +16,13 @@
       
 
   <div class="row">
-    <% @post.each do |post| %>
+    <% @posts.each do |post| %>
       <div class="col-md-5">
         <h5>ユーザー</h5>
           <h4><%= link_to post.customer.name, customer_path(post.customer) %></h4>
           <%  post.images.each do |image| %>
             <%= link_to image_tag(image, width:200), post_path(post.id) %>
           <% end %>
-          <%= post.tag.name %>
         <p class="caption h6"><%= post.location %>
         <%= render 'public/favorites/btn', post: post %></p>
       </div>

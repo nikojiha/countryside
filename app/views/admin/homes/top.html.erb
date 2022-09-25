@@ -21,8 +21,15 @@
                 <%= image_tag customer.profile_image %>
               <% end %>
             </td>
-　          <td><%= link_to customer.name, admin_customer_path(customer.id) %></td>
+　          <td><h4><%= link_to customer.name, admin_customer_path(customer.id) %></h4></td>
 　          <td><%= customer.email %></td>
+　          <td>
+              <% if customer.customer_freeze %>
+                <%= button_to '凍結解除',admin_customer_freeze_path(customer), method: :delete %>
+              <% else %>
+                <%= button_to '凍結', admin_customer_freeze_path(customer) %>
+              <% end %>
+            </td>
 　        </tr>
 　      <% end %>
     　</tbody>

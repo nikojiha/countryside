@@ -1,6 +1,6 @@
 <div class="container my-5">
   <h1>投稿一覧</h1>
-      <%= form_tag posts_path, method: :get, class: 'boards__searchForm my-2' do %>
+      <%= form_tag admin_posts_path, method: :get, class: 'boards__searchForm my-2' do %>
         <%= select_tag :tag_id,
         options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
         {
@@ -10,9 +10,8 @@
         %>
       <% end %>
   <div class="row">
-    <% @post.each do |post| %>
+    <% @posts.each do |post| %>
       <div class="col-md-5">
-        <h5>ユーザー</h5>
           <h4><%= link_to post.customer.name, admin_customer_path(post.customer) %></h4>
           <%  post.images.each do |image| %>
             <%= link_to image_tag(image, width:200), admin_post_path(post.id) %>

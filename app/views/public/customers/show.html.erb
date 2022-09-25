@@ -1,5 +1,9 @@
 <div class="container my-5">
   <div class="row justify-content-center">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+  <div class="row justify-content-center">
     <% if customer_signed_in? && @customer == current_customer %>
       <h1 class="font-weight-normal mt-5 mb-5">マイページ</h1>
     <% else %>

@@ -7,18 +7,17 @@ class Public::CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
-    if @customer == current_customer
-      render :edit
-    else
-      redirect_to customers_path
+    unless @customer == current_customer
+      render :edit,alert: "権限がありません。"
     end
   end
 
   def update
     customer = Customer.find(params[:id])
     if customer.update(customers_params)
-      redirect_to customer_path(customer.id)
+      redirect_to customer_path(customer.id), notice: "編集しました。"
     else
+      flash.now[:alret] = "編集できませんでした。"
      render :edit
     end
   end
@@ -32,9 +31,7 @@ class Public::CustomersController < ApplicationController
 
   def unsubscribe
      @customer = Customer.find(params[:id])
-    if @customer == current_customer
-      render :unsubscribe
-    else
+    unless @customer == current_customer
       redirect_to customers_path
     end
   end
@@ -42,8 +39,10 @@ class Public::CustomersController < ApplicationController
   def destroy
     @customer = Customer.find(params[:id])
     if @customer.destroy
+      flash.now[:notice] = "退会しました。"
       redirect_to "/"
     else
+      flash.now[:alert] = "退会に失敗しました。"
       render :unsubscribe
     end
   end

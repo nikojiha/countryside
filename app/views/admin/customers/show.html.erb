@@ -26,7 +26,7 @@
           <% end %>
         <p class="caption h4"><%= post.location %></p>
         <h5>レビュー</h5>
-        <p class="caption h6"><%= post.post_comment %></p>
+        <p class="caption h6" style="word-break: break-all;"><%= post.post_comment %></p>
        <%= link_to '詳細',  admin_post_path(post), class: 'btn btn-info mt-2'%>
       </div>
     <% end %>

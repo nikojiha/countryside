@@ -8,15 +8,15 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer = current_customer
-    if @post.save!
-      redirect_to posts_path
+    if @post.save
+      redirect_to posts_path, notice: "投稿に成功しました。"
     else
+      flash.now[:alret] = "投稿に失敗しました。"
       render :new
     end
   end
 
   def index
-    @post = Post.all
     @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
   end
 
@@ -28,25 +28,24 @@ class Public::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    if @post.customer == current_customer
-      render :edit
-    else
-      redirect_to customer_path(@post.customer)
+    unless @post.customer == current_customer
+      redirect_to @post, alert: "権限がありません。"
     end
   end
 
   def update
-    post = Post.find(params[:id])
+    @post = Post.find(params[:id])
     if params[:post][:image_ids]
       params[:post][:image_ids].each do |image_id|
         image = post.images.find(image_id)
         image.purge
       end
     end
-    if post.update(post_params)
-      flash[:success] = "編集しました"
-      redirect_to posts_url
+    
+    if @post.update(post_params)
+      redirect_to posts_url, notice: "編集しました。"
     else
+      flash.now[:alert] = "編集できませんでした。"
       render :edit
     end
   end
@@ -55,12 +54,13 @@ class Public::PostsController < ApplicationController
     post = Post.find(params[:id])
     if post.customer == current_customer
       if post.destroy
-        redirect_to posts_path
+        redirect_to posts_path, notice: "投稿を削除しました。"
       else
+        flash.now[:alret] = "投稿の削除に失敗しました。"
         render :show
       end
     else
-      redirect_to customer_path(post.customer)
+      redirect_to post_path(post.id),alert: "権限がありません。"
     end
   end
 

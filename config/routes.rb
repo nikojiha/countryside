@@ -13,9 +13,11 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     resources :freezes, only: [:index]
     resources :tags, except: [:new,:show]
-    resources :posts, only: [:index,:show,:destroy]
+    resources :posts, only: [:index,:show,:destroy] do
+      resources :comments, only: [:destroy]
+    end
     resources :customers, only: [:show,:index] do
-     resource :freeze, only: %i[create destroy], module: 'accounts'
+     resource :freeze, only: %i[create destroy]
     end
   end
 

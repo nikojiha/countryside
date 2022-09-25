@@ -17,7 +17,7 @@
 	  <div class="comments-index mb-2">
     <%= comment.customer.name %>
     <%= comment.created_at.strftime('%Y/%m/%d') %><br>
-     <div class="d-flex">
+     <div class="d-flex ">
       <%= comment.comment %>
       <% if comment.customer == current_customer %>
        <div class="comment-delete ml-5">

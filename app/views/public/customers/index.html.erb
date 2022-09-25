@@ -6,12 +6,14 @@
         <% if customer.id == 1 %>
         <% else %>
           <div class="col-md-3">
-              <%= link_to customer.name, customer_path(customer) %><br>
+            <%= link_to customer_path(customer) do %><br>
+             <p><%= customer.name %></p>
               <% if customer.profile_image.attached? %>
                 <%= image_tag customer.profile_image %>
               <% end %>
               <p class="caption"><%= "#{customer.posts.count} 投稿" %></p>
-              <%= render 'relationship', customer: customer %>
+            <% end %>
+            <%= render 'relationship', customer: customer %>
           </div>
         <% end %>
       <% end %>
